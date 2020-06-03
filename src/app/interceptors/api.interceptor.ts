@@ -9,12 +9,14 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+/** Services */
+import { UtilService } from '../services/util.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiInterceptor implements HttpInterceptor {
-  constructor() { }
+  constructor(private utilService: UtilService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
@@ -35,7 +37,7 @@ export class ApiInterceptor implements HttpInterceptor {
             errorMessage = `Error Code: ${error.status},  Message: ${error.message}`;
           }
         }
-        alert(errorMessage);
+        this.utilService.errorMessage('¡Oops!', errorMessage)
         return throwError(errorMessage);
       }),
     );
