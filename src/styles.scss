@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@charset "utf-8";
+
+$beige-lighter: #EFF0EB;
+
+body,
+html {
+  background-color: $beige-lighter;
+  height: 100%;
+  padding-top: 1em;
+}
+
+.card {
+  border-radius: 0.5em;
+}
+
+button.is-circle {
+  border-radius: 999px;
+}
+
+.is-fixed-rb {
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  z-index: 40;
+}
+
+input {
+  width: 100%;
+}

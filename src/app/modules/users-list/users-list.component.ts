@@ -13,6 +13,10 @@ import { Observable } from 'rxjs';
 export class UsersListComponent implements OnInit {
 
   users: Observable<User[]>
+  userSelected: User;
+
+  /** Flags */
+  showFormModal = false;
 
   constructor(
     private userService: UserService,
@@ -24,6 +28,16 @@ export class UsersListComponent implements OnInit {
 
   private getUsers(): void {
     this.users = this.userService.getUsers();
+  }
+
+  openFormModal(user?: User): void {
+    this.userSelected = user;
+    this.showFormModal = true;
+  }
+
+  closeModal(): void {
+    this.showFormModal = false;
+    this.userSelected = null;
   }
 
   trackById(index: number, user: User): string {

@@ -1,3 +1,47 @@
-<ul>
-  <li *ngFor="let user of users | async; trackBy:trackById">{{user.id}} - {{user.name}}</li>
-</ul>
+<div class="container">
+
+  <h1 class="title">Users</h1>
+
+  <div class="columns">
+    <div class="column is-2" *ngFor="let user of users | async; let i = index ;trackBy:trackById">
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <img src="https://i.picsum.photos/id/{{i}}/48/48.jpg" alt="{{user?.name}} picture">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-4">{{user?.name}}</p>
+            </div>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a href="#" class="card-footer-item" (click)="openFormModal(user)">Edit</a>
+          <a href="#" class="card-footer-item">Delete</a>
+        </footer>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal modal-premium" [ngClass]="{'is-active': showFormModal}">
+  <div class="modal-background"></div>
+  <div class="modal-card modal-card-medium">
+    <header class="modal-card-head">
+      <p class="modal-card-title">User Form</p>
+      <button class="delete" aria-label="close" (click)="closeModal()"></button>
+    </header>
+    <section class="modal-card-body share-modal-body">
+      <app-user-form *ngIf="showFormModal" [user]="userSelected"></app-user-form>
+    </section>
+  </div>
+</div>
+
+<button class="button is-link is-large is-circle is-fixed-rb" type="button" style="opacity: .8;" (click)="openFormModal()">
+  <span class="icon">
+    <i class="material-icons">add</i>
+  </span>
+</button>
