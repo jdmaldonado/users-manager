@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 /** Models */
 import { User } from 'src/app/models/user';
@@ -14,6 +14,7 @@ import { UtilService } from 'src/app/services/util.service';
 export class UserFormComponent implements OnInit {
 
   @Input() user: User;
+  @Output() onSaved = new EventEmitter<void>();
 
   public userForm: FormGroup;
   public submitted = false;
@@ -54,6 +55,8 @@ export class UserFormComponent implements OnInit {
       } else {
         await this.userService.createUser(data);
       }
+      this.userForm.reset();
+      this.onSaved.emit();
       this.utilService.successMessage('¡Great!', 'Process complete successfully');
     } catch (error) {}
   }

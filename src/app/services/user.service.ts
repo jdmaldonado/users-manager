@@ -20,11 +20,11 @@ export class UserService {
   }
 
   createUser(data: any): Promise<any> {
-    return this.http.post(this.baseURL, { data }).pipe(take(1)).toPromise();
+    return this.http.post(this.baseURL, data).pipe(take(1)).toPromise();
   }
 
   updateUser(userId: string, data: any): Promise<any> {
-    return this.http.post(`${this.baseURL}/${userId}`, { data }).pipe(take(1)).toPromise();
+    return this.http.post(`${this.baseURL}/${userId}`, data).pipe(take(1)).toPromise();
   }
 
   deleteUser(userId: string): Promise<any> {

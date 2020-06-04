@@ -18,12 +18,24 @@ export class UsersListComponent implements OnInit {
   /** Flags */
   showFormModal = false;
 
+  /** Swal */
+  removeMessageOptions: any;
+
   constructor(
     private userService: UserService,
   ) { }
 
   ngOnInit(): void {
     this.getUsers();
+    this.removeMessageOptions = {
+      icon: 'question',
+      title: 'Remove User',
+      text: 'Are you sure do you want to remove this user ?',
+      confirmButtonColor: '#00d1b2',
+      confirmButtonText: 'Yes',
+      showCancelButton: true,
+      cancelButtonText: 'Cancel'
+    }
   }
 
   private getUsers(): void {
@@ -42,6 +54,11 @@ export class UsersListComponent implements OnInit {
 
   trackById(index: number, user: User): string {
     return user?.id;
+  }
+
+  onUserSaved(): void {
+    this.getUsers();
+    this.closeModal();
   }
 
 }

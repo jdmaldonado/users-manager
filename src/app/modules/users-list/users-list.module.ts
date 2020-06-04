@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UsersListRoutingModule } from './users-list-routing.module';
+
+/** Components */
 import { UsersListComponent } from './users-list.component';
+/** Shared Modules */
 import { UserFormModule } from '../user-form/user-form.module';
 
 @NgModule({
@@ -11,9 +13,8 @@ import { UserFormModule } from '../user-form/user-form.module';
   ],
   imports: [
     CommonModule,
-    
-    UsersListRoutingModule,
     UserFormModule,
+    UsersListRoutingModule,
   ]
 })
 export class UsersListModule { }
