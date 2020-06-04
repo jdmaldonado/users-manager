@@ -12,6 +12,7 @@
     </div>
   </div>
   <footer class="card-footer">
+    <a [routerLink]="[ '/tasks', user.id ]" class="card-footer-item is-link">Tasks</a>
     <a href="#" class="card-footer-item is-primary" (click)="onEditClick.emit()">Edit</a>
     <a href="#" class="card-footer-item is-danger" (click)="onDeleteClick.emit()">Delete</a>
   </footer>

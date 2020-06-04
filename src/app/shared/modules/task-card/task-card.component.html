@@ -1,0 +1,28 @@
+<div class="card task-card">
+  <div class="columns">
+    <div class="column is-8">
+      <p class="description-container">{{ task.description }}</p>
+    </div>
+    <div class="column state-column">
+      <span class="tag {{task.state | taskState: 'color'}}">{{ task.state | taskState }}</span>
+    </div>
+    <div class="column buttons-column">
+      <div class="field has-addons">
+        <p class="control">
+          <button class="button is-light is-link" (click)="onEditClick.emit()">
+            <span class="icon is-small">
+              <i class="material-icons">edit</i>
+            </span>
+          </button>
+        </p>
+        <p class="control">
+          <button class="button is-light is-danger" (click)="onDeleteClick.emit()">
+            <span class="icon is-small">
+              <i class="material-icons">delete</i>
+            </span>
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

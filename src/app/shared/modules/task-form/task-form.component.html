@@ -1,0 +1,60 @@
+<div class="card">
+  <div class="card-content">
+
+    <form [formGroup]="taskForm" (ngSubmit)="saveTaskInfo()">
+
+      <div class="columns is-desktop is-vcentered is-multiline is-tablet">
+
+        <div class="column is-full">
+          <div class="field">
+            <label class="label">Description</label>
+            <div class="control">
+              <input class="input is-hovered" type="text" formControlName="description" placeholder="Description"
+                [ngClass]="{ 'is-danger': submitted && form.description.errors }" />
+              <div class="help is-danger" *ngIf="submitted && form.description.errors">
+                <div *ngIf="form.description.errors.required">
+                  The description is required
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-full">
+          <div class="field">
+            <label class="label">Estado</label>
+            <div class="control">
+              <div class="select" [ngClass]="{ 'help is-danger': submitted && form.state.errors }">
+                <select class="is-hovered" formControlName="state"
+                  [ngClass]="{ 'help is-danger': submitted && form.state.errors }">
+                  <option value="">Select a state</option>
+                  <option value="to_do"> To Do </option>
+                  <option value="done"> Done </option>
+                </select>
+              </div>
+            </div>
+            <div class="help is-danger" *ngIf="submitted && form.state.errors">
+              <div *ngIf="form.state.errors.required">
+                The state is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-full is-full-mobile">
+          <div class="field is-grouped is-pulled-right">
+            <p class="control">
+              <button class="button is-primary" type="submit">
+                <span class="icon">
+                  <i class="material-icons">save</i>
+                </span>
+                <span>Guardar</span>
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

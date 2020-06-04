@@ -1,0 +1,70 @@
+<div class="container">
+
+  <div class="columns">
+    <div class="column is-2">
+      <a [routerLink]="[ '' ]" class="button is-primary is-inverted">
+        <span class="icon">
+          <i class="material-icons">list</i>
+        </span>
+        <span>Users list</span>
+      </a>
+    </div>
+    <div class="column" style="display: flex; justify-content: start;">
+      <h1 class="title">Tasks</h1>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column is-6" *ngFor="let task of tasks | async; let i = index; trackBy:trackById">
+      <app-task-card [task]="task" (onEditClick)="openModall('Form', task)"
+        (onDeleteClick)="openModall('Delete', task)"></app-task-card>
+    </div>
+  </div>
+</div>
+
+<div id="formModal" class="modal" [ngClass]="{'is-active': showFormModal}">
+  <div class="modal-background"></div>
+  <div class="modal-card modal-card-medium">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Task Form</p>
+      <button class="delete" aria-label="close" (click)="closeModal('Form')"></button>
+    </header>
+    <section class="modal-card-body share-modal-body">
+      <app-task-form *ngIf="showFormModal" [task]="taskSelected" [userId]="userId" (onSaved)="onTaskSaved()">
+      </app-task-form>
+    </section>
+  </div>
+</div>
+
+<div id="deleteModal" class="modal" [ngClass]="{'is-active': showDeleteModal}">
+  <div class="modal-background"></div>
+  <div class="modal-card modal-card-medium">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Delete Task</p>
+      <button class="delete" aria-label="close" (click)="closeModal('Delete')"></button>
+    </header>
+    <section class="modal-card-body share-modal-body">
+      <h2 class="subtitle">Do you really want to delete the task: "{{taskSelected?.description}}" ? </h2>
+    </section>
+    <footer class="modal-card-foot">
+      <div class="field is-grouped is-pulled-right">
+        <p class="control">
+          <button id="reset-password-button" class="button is-danger" type="button" (click)="deleteTask()">
+            <span class="icon">
+              <i class="material-icons">delete</i>
+            </span>
+            <span>Remove</span>
+          </button>
+          <button class="button" type="button" (click)="closeModal('Delete')">Cancelar</button>
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<button class="button is-link is-large is-circle is-fixed-rb" type="button" style="opacity: .8;"
+  (click)="openModall('Form')">
+  <span class="icon">
+    <i class="material-icons">add</i>
+  </span>
+</button>

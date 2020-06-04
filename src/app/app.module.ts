@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 
 /** Utils */
 import { ToastrModule } from 'ngx-toastr';
-import { UserCardComponent } from './shared/modules/user-card/user-card.component';
 
 @NgModule({
   declarations: [
