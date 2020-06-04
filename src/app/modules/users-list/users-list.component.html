@@ -3,36 +3,20 @@
   <h1 class="title">Users</h1>
 
   <div class="columns">
-    <div class="column is-2" *ngFor="let user of users | async; let i = index ;trackBy:trackById">
-      <div class="card user-card">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img src="https://i.picsum.photos/id/{{i}}/48/48.jpg" alt="{{user?.name}} picture">
-              </figure>
-            </div>
-            <div class="media-content">
-              <p class="title is-4">{{user?.name}}</p>
-            </div>
-          </div>
-        </div>
-        <footer class="card-footer">
-          <a href="#" class="card-footer-item" (click)="openFormModal(user)">Edit</a>
-          <a href="#" class="card-footer-item">Delete</a>
-        </footer>
-      </div>
+    <div class="column is-3" *ngFor="let user of users | async; let i = index; trackBy:trackById">
+      <app-user-card [user]="user" (onEditClick)="openModall('Form', user)"
+        (onDeleteClick)="openModall('Delete', user)"></app-user-card>
     </div>
 
   </div>
 </div>
 
-<div class="modal modal-premium" [ngClass]="{'is-active': showFormModal}">
+<div id="formModal" class="modal" [ngClass]="{'is-active': showFormModal}">
   <div class="modal-background"></div>
   <div class="modal-card modal-card-medium">
     <header class="modal-card-head">
       <p class="modal-card-title">User Form</p>
-      <button class="delete" aria-label="close" (click)="closeModal()"></button>
+      <button class="delete" aria-label="close" (click)="closeModal('Form')"></button>
     </header>
     <section class="modal-card-body share-modal-body">
       <app-user-form *ngIf="showFormModal" [user]="userSelected" (onSaved)="onUserSaved()"></app-user-form>
@@ -40,7 +24,34 @@
   </div>
 </div>
 
-<button class="button is-link is-large is-circle is-fixed-rb" type="button" style="opacity: .8;" (click)="openFormModal()">
+<div id="deleteModal" class="modal" [ngClass]="{'is-active': showDeleteModal}">
+  <div class="modal-background"></div>
+  <div class="modal-card modal-card-medium">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Delete User</p>
+      <button class="delete" aria-label="close" (click)="closeModal('Delete')"></button>
+    </header>
+    <section class="modal-card-body share-modal-body">
+      <h2 class="subtitle">Do you really want to delete the user: "{{userSelected?.name}}" ? </h2>
+    </section>
+    <footer class="modal-card-foot">
+      <div class="field is-grouped is-pulled-right">
+        <p class="control">
+          <button id="reset-password-button" class="button is-danger" type="button" (click)="deleteUser()">
+            <span class="icon">
+              <i class="material-icons">delete</i>
+            </span>
+            <span>Remove</span>
+          </button>
+          <button class="button" type="button" (click)="closeModal('Delete')">Cancelar</button>
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<button class="button is-link is-large is-circle is-fixed-rb" type="button" style="opacity: .8;"
+  (click)="openModall('Form')">
   <span class="icon">
     <i class="material-icons">add</i>
   </span>

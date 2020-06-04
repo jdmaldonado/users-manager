@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 /** User */
 import { User } from 'src/app/models/user';
 /** Services */
 import { UserService } from 'src/app/services/user.service';
-import { Observable } from 'rxjs';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-users-list',
@@ -17,12 +18,14 @@ export class UsersListComponent implements OnInit {
 
   /** Flags */
   showFormModal = false;
+  showDeleteModal = false;
 
   /** Swal */
   removeMessageOptions: any;
 
   constructor(
     private userService: UserService,
+    private utilService: UtilService,
   ) { }
 
   ngOnInit(): void {
@@ -42,13 +45,13 @@ export class UsersListComponent implements OnInit {
     this.users = this.userService.getUsers();
   }
 
-  openFormModal(user?: User): void {
+  openModall(type: string, user?: User): void {
     this.userSelected = user;
-    this.showFormModal = true;
+    this[`show${type}Modal`] = true;
   }
 
-  closeModal(): void {
-    this.showFormModal = false;
+  closeModal(type: string): void {
+    this[`show${type}Modal`] = false;
     this.userSelected = null;
   }
 
@@ -58,7 +61,16 @@ export class UsersListComponent implements OnInit {
 
   onUserSaved(): void {
     this.getUsers();
-    this.closeModal();
+    this.closeModal('Form');
+  }
+
+  async deleteUser(): Promise<void> {
+    try {
+      await this.userService.deleteUser(this.userSelected.id);
+      this.getUsers();
+      this.utilService.successMessage('¡Great!', 'User Removed successfully');
+      this.closeModal('Delete');
+    } catch (error) { }
   }
 
 }
